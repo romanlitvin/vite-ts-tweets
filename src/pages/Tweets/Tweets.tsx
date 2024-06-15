@@ -1,9 +1,10 @@
 import { FC, useEffect, useState } from 'react';
-import { LinkToHome } from './Tweets.styled';
+import { Container, LinkToHome, List } from './Tweets.styled';
 import { AxiosApiService } from '../../components/services/AxiosApiService';
 import { Tweet } from '../../components/Tweet/Tweet';
+import { Button } from '../../components/Button/Button';
 
-export interface ITweet {
+interface ITweet {
   user: string;
   tweets: number;
   followers: number;
@@ -11,60 +12,67 @@ export interface ITweet {
   id: string;
 }
 
+// type TweetWithoutUserAvatarId = Omit<ITweet, 'user' | 'avatar' | 'id'>;
+
 const Tweets: FC = () => {
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [items, setItems] = useState<ITweet[]>([]);
-  const [isError, setIsError] = useState(false);
-
-  console.log(items);
+  const [totalHits, setTotalHits] = useState(0);
+  //   const [firstNewResultIndex, setFirstNewResultIndex] = useState(3);
+  //   const [isError, setIsError] = useState(false);
+  //   const totalHits = useRef(0);
 
   useEffect(() => {
+    const abortController = new AbortController();
     const getTweets = async () => {
       try {
         setIsLoading(true);
-        const responseData = await AxiosApiService(page);
-
-        if (responseData.length > 0)
+        const responseData = await AxiosApiService(page, abortController);
+        setTotalHits(responseData.length);
+        if (totalHits > 0) {
           setItems((prevState) => [...prevState, ...responseData]);
-        // if (responseData.length > 0) setItems(responseData);
+          //   setItems([...items, ...responseData]);
+        }
+        // setFirstNewResultIndex(items.length - 3);
       } catch (error) {
-        setIsError(true);
-        console.log(`IsError: ${isError}, ${error}`);
+        // setIsError(true);
+        console.log(`IsError: ${error}`);
       } finally {
         setIsLoading(false);
       }
     };
 
     getTweets();
-  }, [page, isError]);
+    return () => abortController.abort();
+  }, [page, totalHits]);
 
   const loadMore = () => {
     setPage((prevState) => prevState + 1);
   };
 
   return (
-    <div>
+    <Container>
       <LinkToHome to='/'>Back</LinkToHome>
       {!isLoading && items && (
-        <ul>
-          {items.map(({ user, tweets, followers, avatar, id }) => {
+        <List>
+          //TODO: add spinner
+          {items.map(({ tweets, followers, id }, i) => {
             return (
               <Tweet
                 key={id}
-                user={user}
                 tweets={tweets}
                 followers={followers}
-                avatar={avatar}
-                id={id}
+                firstNewResultIndex={i === items.length - 3}
               ></Tweet>
             );
           })}
-        </ul>
+        </List>
       )}
-      {items.length > 0 && <button onClick={loadMore} />}
-      {/* {items.length > 0 && totalHits - 11 >= 1 && <Button onClick={loadMore} />} */}
-    </div>
+      {items.length > 0 && totalHits > 2 && !isLoading && (
+        <Button onClick={loadMore} />
+      )}
+    </Container>
   );
 };
 

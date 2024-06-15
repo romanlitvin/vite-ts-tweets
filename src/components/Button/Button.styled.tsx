@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
-export const LinkToHome = styled(Link)`
+export const ButtonLoadMore = styled.button`
   padding: 8px 16px;
   border-radius: 10px;
   background-color: #471ca9;
@@ -26,18 +25,4 @@ export const LinkToHome = styled(Link)`
     background-color: pink;
     color: black;
   }
-`;
-
-export const List = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0;
-  margin-top: 15px;
-`;
-
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
