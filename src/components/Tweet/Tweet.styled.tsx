@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface FollowButtonProps {
+  $isFollowing: boolean;
+}
+
 export const Container = styled.div`
   position: relative;
   width: 380px;
@@ -7,7 +11,7 @@ export const Container = styled.div`
   box-shadow: -2.5777px 6.87386px 20.6216px rgba(0, 0, 0, 0.23);
   border-radius: 20px;
   margin-bottom: 15px;
-  background: url('src/assets/picture2 1.svg') no-repeat 36px 28px / 308px 168px,
+  background: url('src/assets/picture2.svg') no-repeat 36px 28px / 308px 168px,
     linear-gradient(114.99deg, #471ca9 -0.99%, #5736a3 54.28%, #4b2a99 78.99%);
 `;
 
@@ -58,17 +62,14 @@ export const FollowersCount = styled.p`
   color: #ebd8ff;
 `;
 
-export const FollowButton = styled.button`
+export const FollowButton = styled.button<FollowButtonProps>`
   margin: 26px auto auto;
   display: flex;
-  /* flex-direction: row; */
   justify-content: center;
-  /* align-items: center; */
   padding: 14px 28px;
   width: 196px;
   height: 50px;
-  background: #ebd8ff;
-  /* background: #5cd3a8; */
+  background: ${(props) => (props.$isFollowing ? '#5cd3a8' : '#ebd8ff')};
   border: 0;
   border-radius: 10.3108px;
   box-shadow: 0px 3.44px 3.44px 0px #00000040;

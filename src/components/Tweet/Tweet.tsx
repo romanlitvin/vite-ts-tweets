@@ -10,28 +10,32 @@ import {
 } from './Tweet.styled';
 
 interface ITweetProps {
+  id: string;
   tweets: number;
   followers: number;
-  firstNewResultIndex: boolean;
+  isFirstNewResultIndex: boolean;
+  followUnfollowUser: (id: string) => void;
+  followedUsers: string[];
 }
 
 export const Tweet: FC<ITweetProps> = ({
+  id,
   tweets,
   followers,
-  firstNewResultIndex,
+  isFirstNewResultIndex,
+  followUnfollowUser,
+  followedUsers,
 }) => {
-  const firstNewResultRef = useRef<HTMLDivElement>(null);
+  const firstNewResultRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (firstNewResultRef.current) {
-      setTimeout(() => {
-        firstNewResultRef.current?.focus();
-      }, 100);
+      firstNewResultRef.current?.focus();
     }
-  }, [firstNewResultIndex]);
+  }, [isFirstNewResultIndex]);
 
   return (
-    <Container ref={firstNewResultIndex ? firstNewResultRef : undefined}>
+    <Container>
       <Logo src='src/assets/Logo.svg' alt='GoIt_logo' />
       <Stripe></Stripe>
       <UserImg src='src/assets/Boy.svg' alt='User_photo' />
@@ -39,12 +43,14 @@ export const Tweet: FC<ITweetProps> = ({
       <FollowersCount>
         {Number(followers).toLocaleString()} FOLLOWERS
       </FollowersCount>
-      <FollowButton>FOLLOW</FollowButton>
+      <FollowButton
+        ref={isFirstNewResultIndex ? firstNewResultRef : undefined}
+        type='button'
+        onClick={() => followUnfollowUser(id)}
+        $isFollowing={followedUsers.includes(id)}
+      >
+        {followedUsers.includes(id) ? 'FOLLOWING' : 'FOLLOW'}
+      </FollowButton>
     </Container>
   );
 };
-
-{
-  /* <p>{`${id} ${user} ${tweets} ${followers} ${avatar} 
-     ${firstNewResultIndex} ${firstNewResultRef.current}`}</p> */
-}

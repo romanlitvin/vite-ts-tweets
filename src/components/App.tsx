@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import SharedLayout from './SharedLayout/SharedLayout';
@@ -6,7 +6,7 @@ import SharedLayout from './SharedLayout/SharedLayout';
 const Home = lazy(() => import('../pages/Home/Home'));
 const Tweets = lazy(() => import('../pages/Tweets/Tweets'));
 
-export const App: React.FC = () => (
+export const App: FC = () => (
   <Routes>
     <Route path='/' element={<SharedLayout />}>
       <Route index element={<Home />} />
