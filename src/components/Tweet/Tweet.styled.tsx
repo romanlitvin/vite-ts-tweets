@@ -11,7 +11,7 @@ export const Container = styled.div`
   box-shadow: -2.5777px 6.87386px 20.6216px rgba(0, 0, 0, 0.23);
   border-radius: 20px;
   margin-bottom: 15px;
-  background: url('src/assets/picture2.svg') no-repeat 36px 28px / 308px 168px,
+  background: url('assets/picture2.svg') no-repeat 36px 28px / 308px 168px,
     linear-gradient(114.99deg, #471ca9 -0.99%, #5736a3 54.28%, #4b2a99 78.99%);
 `;
 

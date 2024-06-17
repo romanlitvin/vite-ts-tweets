@@ -36,9 +36,9 @@ export const Tweet: FC<ITweetProps> = ({
 
   return (
     <Container>
-      <Logo src='src/assets/Logo.svg' alt='GoIt_logo' />
+      <Logo src='assets/Logo.svg' alt='GoIt_logo' />
       <Stripe></Stripe>
-      <UserImg src='src/assets/Boy.svg' alt='User_photo' />
+      <UserImg src='assets/Boy.svg' alt='User_photo' />
       <TweetsCount>{tweets} TWEETS</TweetsCount>
       <FollowersCount>
         {Number(followers).toLocaleString()} FOLLOWERS
