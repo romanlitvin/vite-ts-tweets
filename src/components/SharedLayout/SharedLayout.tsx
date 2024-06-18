@@ -12,7 +12,7 @@ const SharedLayout = () => (
         <Link to='/tweets'>Tweets</Link>
       </nav>
     </Header>
-    <Suspense fallback={<div> Loading page...</div>}>
+    <Suspense fallback={<h4> Loading page...</h4>}>
       <Outlet />
     </Suspense>
   </Container>

@@ -8,6 +8,8 @@ import {
   TweetsCount,
   UserImg,
 } from './Tweet.styled';
+import logo from 'src/assets/Logo.svg';
+import boy from 'src/assets/Boy.svg';
 
 interface ITweetProps {
   id: string;
@@ -36,9 +38,9 @@ export const Tweet: FC<ITweetProps> = ({
 
   return (
     <Container>
-      <Logo src='assets/Logo.svg' alt='GoIt_logo' />
+      <Logo src={logo} alt='GoIt_logo' />
       <Stripe></Stripe>
-      <UserImg src='assets/Boy.svg' alt='User_photo' />
+      <UserImg src={boy} alt='User_photo' />
       <TweetsCount>{tweets} TWEETS</TweetsCount>
       <FollowersCount>
         {Number(followers).toLocaleString()} FOLLOWERS
