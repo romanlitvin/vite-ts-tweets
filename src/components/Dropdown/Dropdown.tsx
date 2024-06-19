@@ -1,13 +1,12 @@
 import { FC } from 'react';
-import Select from 'react-select';
+import Select, { ActionMeta, SingleValue, StylesConfig } from 'react-select';
+import type { FollowOption } from '../../types/types';
 
-export interface FollowOption {
-  readonly value: string;
-  readonly label: string;
-}
-
-interface DropdownProps {
-  onChange: (option: FollowOption | null) => void;
+export interface DropdownProps {
+  onChange: (
+    option: SingleValue<FollowOption> | null,
+    actionMeta: ActionMeta<FollowOption>
+  ) => void;
 }
 
 const options: readonly FollowOption[] = [
@@ -15,6 +14,13 @@ const options: readonly FollowOption[] = [
   { value: 'follow', label: 'Follow' },
   { value: 'followings', label: 'Followings' },
 ];
+
+const customStyles: StylesConfig<FollowOption, false> = {
+  control: (provided) => ({
+    ...provided,
+    width: '150px',
+  }),
+};
 
 export const Dropdown: FC<DropdownProps> = ({ onChange }) => {
   return (
@@ -25,6 +31,7 @@ export const Dropdown: FC<DropdownProps> = ({ onChange }) => {
         options={options}
         isSearchable={false}
         name='filter'
+        styles={customStyles}
       />
     </div>
   );

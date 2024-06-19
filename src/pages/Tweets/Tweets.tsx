@@ -7,15 +7,8 @@ import {
 import { Tweet } from '../../components/Tweet/Tweet';
 import { Button } from '../../components/Button/Button';
 import { Dropdown } from '../../components/Dropdown/Dropdown';
-import type { FollowOption } from '../../components/Dropdown/Dropdown';
-
-export interface ITweet {
-  user: string;
-  tweets: number;
-  followers: number;
-  avatar: string;
-  id: string;
-}
+import { SingleValue } from 'react-select';
+import type { FollowOption, ITweet } from '../../types/types';
 
 const getFollowedUsers = (): string[] => {
   const followedUsers = JSON.parse(localStorage.getItem('followed') || '""');
@@ -48,10 +41,6 @@ const Tweets: FC = () => {
     return () => abortController.abort();
   }, [page]);
 
-  const loadMore = () => {
-    setPage((prevState) => prevState + 1);
-  };
-
   useEffect(() => {
     if (followedUsers)
       localStorage.setItem('followed', JSON.stringify(followedUsers));
@@ -74,6 +63,7 @@ const Tweets: FC = () => {
           i.id === userId ? { ...i, followers: updatedFollowers } : i
         )
       );
+
       await AxiosApiServicePut({
         ...user,
         followers: updatedFollowers,
@@ -81,6 +71,10 @@ const Tweets: FC = () => {
     } catch (error) {
       console.log(`IsError: ${error}`);
     }
+  };
+
+  const filterChange = (option: SingleValue<FollowOption>) => {
+    setFilter(option?.value || 'show all');
   };
 
   const getVisibleTweets = (filter: string) => {
@@ -96,8 +90,8 @@ const Tweets: FC = () => {
     }
   };
 
-  const filterChange = (option: FollowOption | null) => {
-    setFilter(option?.value || 'show all');
+  const loadMore = () => {
+    setPage((prevState) => prevState + 1);
   };
 
   return (

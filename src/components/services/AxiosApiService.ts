@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ITweet } from '../../pages/Tweets/Tweets';
+import type { ITweet } from '../../types/types';
 
 export const AxiosApiServiceGet = async (
   page: number,
