@@ -28,12 +28,16 @@ export const Tweet: FC<ITweetProps> = ({
   followUnfollowUser,
   followedUsers,
 }) => {
-  const firstNewResultRef = useRef<HTMLButtonElement>(null);
+    // TS error.
+    // null check has to be added
+  const firstNewResultRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
+      // Redundant statement. Optional chaining already checks for null.
     if (firstNewResultRef.current) {
       firstNewResultRef.current?.focus();
     }
+    // Bad handling. In deps is passed argument which doesn't take part in effect.
   }, [isFirstNewResultIndex]);
 
   return (
@@ -48,6 +52,7 @@ export const Tweet: FC<ITweetProps> = ({
       <FollowButton
         ref={isFirstNewResultIndex ? firstNewResultRef : undefined}
         type='button'
+        // Inline function
         onClick={() => followUnfollowUser(id)}
         $isFollowing={followedUsers.includes(id)}
       >

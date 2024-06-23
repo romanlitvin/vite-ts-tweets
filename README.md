@@ -1,3 +1,10 @@
+## Notes:
+1. On Tweets page load top UI shows and disappears on tweets' load
+2. On Load more tweets load – tweets disappear and reappear
+3. Instead of using heavy .svgs' .pngs' can be used instead (Boy.svg, picture2.svg etc.)
+4. Bad assets names (picture2.svg, picture3.svg etc.)
+
+
 <h1 align="center">Welcome to vite-ts-tweets 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.0-blue.svg?cacheSeconds=2592000" />

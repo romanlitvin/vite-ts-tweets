@@ -7,6 +7,7 @@ const Home = lazy(() => import('../pages/Home/Home'));
 const Tweets = lazy(() => import('../pages/Tweets/Tweets'));
 
 export const App: FC = () => (
+    // Why Switch is not used here ?
   <Routes>
     <Route path='/' element={<SharedLayout />}>
       <Route index element={<Home />} />

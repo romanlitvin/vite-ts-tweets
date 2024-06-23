@@ -9,11 +9,12 @@ export interface DropdownProps {
   ) => void;
 }
 
-const options: readonly FollowOption[] = [
+// Can be simplified to:
+const options = [
   { value: 'show all', label: 'Show all' },
   { value: 'follow', label: 'Follow' },
   { value: 'followings', label: 'Followings' },
-];
+] as const;
 
 const customStyles: StylesConfig<FollowOption, false> = {
   control: (provided) => ({
